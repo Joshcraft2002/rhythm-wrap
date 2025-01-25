@@ -4,6 +4,7 @@ using Melanchall.DryWetMidi.Interaction;
 using System.IO;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class SongManager : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class SongManager : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.PauseToggled.AddListener(SetSongPaused);
+
         if (Application.streamingAssetsPath.StartsWith("http://") || Application.streamingAssetsPath.StartsWith("https://"))
         {
             StartCoroutine(ReadFromWebsite());
@@ -93,6 +96,22 @@ public class SongManager : MonoBehaviour
     public void StartSong()
     {
         _musicSource.Play();
+    }
+
+    public void SetSongPaused(bool paused)
+    {
+        if (paused)
+            _musicSource.Pause();
+        else
+            _musicSource.Play();
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+            return;
+
+        GameManager.Instance.ToggleGamePause();
     }
 
     public static double GetAudioSourceTime()

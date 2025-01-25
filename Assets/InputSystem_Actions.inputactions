@@ -6,7 +6,7 @@
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
-                    "name": "Lane1Press",
+                    "name": "Left/Lane1",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
                     "expectedControlType": "",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Lane2Press",
+                    "name": "Down/Lane2",
                     "type": "Button",
                     "id": "89a3b57a-a891-4426-be95-20a9515818df",
                     "expectedControlType": "",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Lane3Press",
+                    "name": "Right/Lane3",
                     "type": "Button",
                     "id": "b5c8d5ac-e0a0-4426-b6ca-cdda523518f5",
                     "expectedControlType": "",
@@ -33,12 +33,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Lane4Press",
+                    "name": "Pause",
                     "type": "Button",
-                    "id": "c4479e8f-4651-453e-8cfc-384cf3f4aab0",
+                    "id": "1b2ebae3-367c-4a36-9afd-4625e03605ff",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -50,7 +50,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Lane1Press",
+                    "action": "Left/Lane1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -61,7 +61,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Lane2Press",
+                    "action": "Down/Lane2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -72,18 +72,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Lane3Press",
+                    "action": "Right/Lane3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "55063e49-30ae-4c76-bed1-ae10d6998d35",
-                    "path": "<Keyboard>/f",
+                    "id": "9500c69e-cc9d-4253-b1f9-bfa3d6af68cc",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Lane4Press",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

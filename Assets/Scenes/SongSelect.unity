@@ -209,11 +209,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515628441193817316, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.023887
+      value: -0.019075
       objectReference: {fileID: 0}
     - target: {fileID: 2515628441193817316, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -203
+      value: 107
       objectReference: {fileID: 0}
     - target: {fileID: 2515628441193817316, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -250,6 +250,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6505595591925143038, guid: d20670d63a83024468adcb9e9a806794, type: 3}
   m_PrefabInstance: {fileID: 226327708}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &226327712 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5365426847770226, guid: d20670d63a83024468adcb9e9a806794, type: 3}
+  m_PrefabInstance: {fileID: 226327708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226327710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &255267619
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,9 +1190,9 @@ RectTransform:
   - {fileID: 1780640163}
   - {fileID: 1787650137}
   - {fileID: 1038232173}
-  - {fileID: 1608496290}
-  - {fileID: 1970297039}
   - {fileID: 226327709}
+  - {fileID: 1970297039}
+  - {fileID: 1608496290}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1466,17 +1477,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2515628441193817316, guid: d20670d63a83024468adcb9e9a806794, type: 3}
   m_PrefabInstance: {fileID: 1492519399903477539}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1608496292 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5365426847770226, guid: d20670d63a83024468adcb9e9a806794, type: 3}
-  m_PrefabInstance: {fileID: 1492519399903477539}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1780640162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,7 +1703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 873a7012c352ec44f80875540c678ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _firstButton: {fileID: 1608496292}
+  _firstButton: {fileID: 226327712}
 --- !u!1001 &1970297038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1860,15 +1860,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 704358216855815430, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: _mapPath
-      value: nokia trial beatmap 1.mid
+      value: eepy time with Ari.mid
+      objectReference: {fileID: 0}
+    - target: {fileID: 704358216855815430, guid: d20670d63a83024468adcb9e9a806794, type: 3}
+      propertyPath: _mapNote2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 704358216855815430, guid: d20670d63a83024468adcb9e9a806794, type: 3}
+      propertyPath: _mapNote3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 704358216855815430, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: _songClip
       value: 
-      objectReference: {fileID: 8300000, guid: d4b04c8e85718854fb5af6150ca45cf3, type: 3}
+      objectReference: {fileID: 8300000, guid: 9651bbc3c55a00f4da1d1c7c73dad6c0, type: 3}
     - target: {fileID: 1197942181691928868, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_text
-      value: Eepy Time With Ari
+      value: eepy time with Ari
       objectReference: {fileID: 0}
     - target: {fileID: 2515628441193817316, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_Pivot.x
@@ -1932,11 +1940,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2515628441193817316, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.019011
+      value: 0.02389
       objectReference: {fileID: 0}
     - target: {fileID: 2515628441193817316, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 109
+      value: -206
       objectReference: {fileID: 0}
     - target: {fileID: 2515628441193817316, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1952,7 +1960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6505595591925143038, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_Name
-      value: Eepy Time With Ari
+      value: eepy time with ari
       objectReference: {fileID: 0}
     - target: {fileID: 6505595591925143038, guid: d20670d63a83024468adcb9e9a806794, type: 3}
       propertyPath: m_IsActive

@@ -5,32 +5,42 @@ using System.IO;
 using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class SongManager : MonoBehaviour
 {
-    public static SongManager Instance { get; private set; }
+    private enum SongState
+    {
+        Waiting,
+        Playing,
+        Finished
+    }
 
-    public Lane[] Lanes;
+    public static SongManager Instance { get; private set; }
+    
     [SerializeField] private int _songDelayInSeconds;
     public double marginOfError; // in seconds
     public int InputDelayInMilliSeconds; // something about keyboard issue possibility
-
-    private string _mapFileLocation;
-    private bool _songHasStarted = false;
-    private bool _UINavigable = false;
     public float NoteDuration;
     public float NoteSpawnY;
-    public float NoteSpawnCooldown;
     [SerializeField] private float _noteTapY;
+
+    private UnityEvent<bool> _pauseToggled = new();
+
+    private string _mapFileLocation;
+    private SongState _songState = SongState.Waiting;
+    private bool _UINavigable = false;
+    private bool _isGamePaused = false;
 
     [Space]
 
+    [SerializeField] private Lane[] Lanes;
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private GameObject _completionScreen;
     [SerializeField] private GameObject _pauseScreen;
 
+    public UnityEvent<bool> PauseToggled => _pauseToggled;
     public float NoteDespawnY => _noteTapY - (NoteSpawnY - _noteTapY);
 
     /// <summary>
@@ -48,17 +58,17 @@ public class SongManager : MonoBehaviour
 
     void Start()
     {
-        _completionScreen.SetActive(false);
-
         _musicSource.clip = SongLoader.Instance.SongClip;
         _mapFileLocation = SongLoader.Instance.MapPath;
+
+        _completionScreen.SetActive(false);
+
+        PauseToggled.AddListener(SetSongPaused);
 
         for (int i = 0; i < Lanes.Length; i++)
         {
             Lanes[i].NoteRestriction = SongLoader.Instance.MapNotes[i];
         }
-
-        GameManager.Instance.PauseToggled.AddListener(SetSongPaused);
 
         if (Application.streamingAssetsPath.StartsWith("http://") || Application.streamingAssetsPath.StartsWith("https://"))
         {
@@ -72,8 +82,9 @@ public class SongManager : MonoBehaviour
 
     private void Update()
     {
-        if (_songHasStarted && !_musicSource.isPlaying && _musicSource.time >= _musicSource.clip.length)
+        if (_songState != SongState.Finished && !_musicSource.isPlaying && _musicSource.time >= _musicSource.clip.length)
         {
+            _songState = SongState.Finished;
             _completionScreen.SetActive(true);
             _UINavigable = true;
         }
@@ -81,24 +92,19 @@ public class SongManager : MonoBehaviour
 
     private IEnumerator ReadFromWebsite()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get(Application.streamingAssetsPath + "/" + _mapFileLocation))
+        using UnityWebRequest www = UnityWebRequest.Get(Application.streamingAssetsPath + "/" + _mapFileLocation);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError(www.error);
-            }
-            else
-            {
-                byte[] results = www.downloadHandler.data;
-                using (var stream = new MemoryStream(results))
-                {
-                    MapFile = MidiFile.Read(stream);
-                    GetDataFromMidi();
-                }
-            }
-
+            Debug.LogError(www.error);
+        }
+        else
+        {
+            byte[] results = www.downloadHandler.data;
+            using var stream = new MemoryStream(results);
+            MapFile = MidiFile.Read(stream);
+            GetDataFromMidi();
         }
     }
 
@@ -125,7 +131,7 @@ public class SongManager : MonoBehaviour
     public void StartSong()
     {
         _musicSource.Play();
-        _songHasStarted = true;
+        _songState = SongState.Playing;
     }
 
     public void SetSongPaused(bool paused)
@@ -138,10 +144,13 @@ public class SongManager : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (!context.started)
+        // if song completed, cancel key should only return to menu
+        if (!context.started || _songState == SongState.Finished)
             return;
 
-        GameManager.Instance.ToggleGamePause();
+        _isGamePaused = !_isGamePaused;
+        Time.timeScale = _isGamePaused ? 0f : 1f;
+        PauseToggled.Invoke(_isGamePaused);
     }
 
     public static double GetAudioSourceTime()

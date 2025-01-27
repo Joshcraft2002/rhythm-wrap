@@ -9,7 +9,7 @@ public class SongSelectController : MonoBehaviour
 {
     public static SongSelectController Instance { get; private set; }
 
-    [SerializeField] Button _firstButton; // Assign this in the Inspector
+    [SerializeField] Button _firstButton;
     private EventSystem eventSystem;
 
     private void Awake()

@@ -19,6 +19,8 @@ public class ScoreManager : MonoBehaviour
     private int _comboMultiplier = 0;
     private int _score = 0;
 
+    public bool HasMissed { get; private set; } = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -49,6 +51,7 @@ public class ScoreManager : MonoBehaviour
 
     public void Miss()
     {
+        HasMissed = true;
         _comboScore = 0;
         _comboPanel.SetActive(false);
         _missSFX.Play();

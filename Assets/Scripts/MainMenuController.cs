@@ -10,7 +10,7 @@ public class MainMenuController : MonoBehaviour
             SceneManager.LoadScene("SongSelect");
     }
 
-    public void OnCancel(InputAction.CallbackContext context)
+    public void OnPause(InputAction.CallbackContext context)
     {
         if (context.started)
             Application.Quit();

@@ -38,6 +38,7 @@ public class SongManager : MonoBehaviour
     [SerializeField] private Lane[] Lanes;
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private GameObject _completionScreen;
+    [SerializeField] private GameObject _fullClearObject;
     [SerializeField] private GameObject _pauseScreen;
 
     public UnityEvent<bool> PauseToggled => _pauseToggled;
@@ -62,6 +63,7 @@ public class SongManager : MonoBehaviour
         _mapFileLocation = SongLoader.Instance.MapPath;
 
         _completionScreen.SetActive(false);
+        _pauseScreen.SetActive(false);
 
         PauseToggled.AddListener(SetSongPaused);
 
@@ -86,6 +88,10 @@ public class SongManager : MonoBehaviour
         {
             _songState = SongState.Finished;
             _completionScreen.SetActive(true);
+            if (ScoreManager.Instance.HasMissed)
+            {
+                _fullClearObject.SetActive(false);
+            }
             _UINavigable = true;
         }
     }
@@ -142,6 +148,11 @@ public class SongManager : MonoBehaviour
             _musicSource.Play();
     }
 
+    public static double GetAudioSourceTime()
+    {
+        return (double)Instance._musicSource.timeSamples / Instance._musicSource.clip.frequency;
+    }
+
     public void OnPause(InputAction.CallbackContext context)
     {
         // if song completed, cancel key should only return to menu
@@ -149,24 +160,27 @@ public class SongManager : MonoBehaviour
             return;
 
         _isGamePaused = !_isGamePaused;
+        _UINavigable = _isGamePaused;
+        _pauseScreen.SetActive(_isGamePaused);
         Time.timeScale = _isGamePaused ? 0f : 1f;
         PauseToggled.Invoke(_isGamePaused);
-    }
-
-    public static double GetAudioSourceTime()
-    {
-        return (double)Instance._musicSource.timeSamples / Instance._musicSource.clip.frequency;
     }
 
     public void OnAccept(InputAction.CallbackContext context)
     {
         if (context.started && _UINavigable)
+        {
+            Time.timeScale = 1f;
             SceneManager.LoadScene("SongLevel");
+        }
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
         if (context.started && _UINavigable)
+        {
+            Time.timeScale = 1f;
             SceneManager.LoadScene("SongSelect");
+        }
     }
 }
